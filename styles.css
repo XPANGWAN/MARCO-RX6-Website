@@ -1412,3 +1412,86 @@ html[dir="rtl"] .site-header .main-nav .nav-cta{
 .detail-symbol .site-icon{
   stroke-width:1.55;
 }
+
+
+/* Performance pass: reduce continuously painted effects and expensive filters. */
+.grain{display:none!important}
+body::after{
+  animation:none!important;
+  filter:none!important;
+  opacity:.09!important;
+}
+.wolf-art{animation:none!important}
+.wolf-art-image{filter:none!important}
+.site-header,.main-nav,.floating-top,.button-outline{
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+}
+.feature-card,.detail-card,.download-card{
+  transition:border-color .18s ease!important;
+}
+.feature-card:hover,.detail-card:hover,.download-card:hover{
+  transform:none!important;
+  box-shadow:none!important;
+}
+.reveal{transition:opacity .28s ease!important;transform:none!important}
+html{scroll-behavior:auto}
+
+/* Refined icon tiles: larger symbols, quieter typography and better balance. */
+.feature-icon,.detail-symbol{
+  width:46px!important;
+  height:46px!important;
+  min-height:46px!important;
+  margin:24px 0 18px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border:1px solid rgba(220,228,238,.18)!important;
+  border-radius:12px!important;
+  background:linear-gradient(145deg,rgba(225,232,242,.09),rgba(225,232,242,.025))!important;
+  color:#e0e6ee!important;
+}
+.feature-icon .site-icon,.detail-symbol .site-icon{
+  width:27px!important;
+  height:27px!important;
+  min-width:27px!important;
+  max-width:27px!important;
+  min-height:27px!important;
+  max-height:27px!important;
+  flex:0 0 27px!important;
+  overflow:visible!important;
+  stroke-width:1.7!important;
+}
+.feature-card h3,.detail-card h3{
+  font-size:clamp(16px,1.25vw,18px)!important;
+  line-height:1.35!important;
+  letter-spacing:.65px!important;
+  margin:0 0 9px!important;
+}
+.feature-card p,.detail-card p{
+  font-size:12px!important;
+  line-height:1.75!important;
+  max-width:34ch!important;
+}
+.feature-card{padding:27px!important;min-height:245px!important}
+.detail-card{padding:25px!important;min-height:225px!important}
+html[dir="rtl"] .feature-card h3,
+html[dir="rtl"] .detail-card h3{
+  letter-spacing:0!important;
+  line-height:1.6!important;
+}
+html[dir="rtl"] .feature-icon,
+html[dir="rtl"] .detail-symbol{
+  justify-content:center!important;
+}
+@media(max-width:600px){
+  .feature-card{min-height:0!important;padding:23px!important}
+  .detail-card{min-height:0!important;padding:23px!important}
+  .feature-icon,.detail-symbol{margin:18px 0 14px!important}
+  .feature-card h3,.detail-card h3{font-size:17px!important}
+  .feature-card p,.detail-card p{font-size:12px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  body::after,.wolf-art{animation:none!important}
+  .reveal,.feature-card,.detail-card,.download-card{transition:none!important}
+}
