@@ -104,7 +104,7 @@
         const link=card.querySelector(".download-link");
         if(asset&&asset.browser_download_url){
           if(size)size.textContent=messages.size+" · "+formatBytes(asset.size);
-          if(link){link.href=asset.browser_download_url;link.classList.remove("is-disabled");link.removeAttribute("aria-disabled");link.querySelector("span").textContent=lang==="ar"?"تحميل النسخة":"Download APK";}
+          if(link){link.href="/download/"+(i===0?"universal":i===1?"arm64":"arm32");link.classList.remove("is-disabled");link.removeAttribute("aria-disabled");link.querySelector("span").textContent=lang==="ar"?"تحميل النسخة":"Download APK";}
         }else{
           if(size)size.textContent=lang==="ar"?"لم تُرفق هذه النسخة بهذا الإصدار":"Not included in this release";
           if(link){link.href=release.html_url||"#download";link.classList.add("is-disabled");link.setAttribute("aria-disabled","true");link.querySelector("span").textContent=lang==="ar"?"غير متاحة":"Unavailable";}
