@@ -29,7 +29,7 @@ export async function onRequest() {
 
     const versionName = String(release.tag_name).replace(/^[vV]/, "");
     const notes = String(release.body || "");
-    const codeMatch = notes.match(/(?:version\\s*code|رمز\\s*الإصدار)\\s*[:：]?\\s*\\**(\\d+)/i);
+    const codeMatch = notes.match(/(?:version\s*code|رمز\s*الإصدار)\s*[:：]?\s*\\**(\d+)/i);
     const versionCode = codeMatch ? Number.parseInt(codeMatch[1], 10) : null;
 
     return Response.json({
