@@ -520,3 +520,32 @@ html[lang="ar"] .section-kicker,html[lang="ar"] .eyebrow{font-weight:700}
   html[lang="ar"] .feature-card p,html[lang="ar"] .download-card p,
   html[lang="ar"] .community-row>div>p{font-size:13px}
 }
+
+
+/* Uploaded MARCO RX6 wolf artwork: crop the lettering and feature only the wolf head. */
+.wolf-image-crop{
+  position:absolute;
+  inset:3% 0 19%;
+  overflow:hidden;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  z-index:2;
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 88%,transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 0%,#000 88%,transparent 100%);
+}
+.wolf-art-image{
+  display:block;
+  width:112%;
+  height:auto;
+  max-width:none;
+  object-fit:contain;
+  object-position:top center;
+  filter:drop-shadow(0 18px 36px rgba(210,218,228,.12));
+}
+.wolf-stage .wolf-ring{z-index:1}
+.wolf-stage .wolf-caption{position:absolute;z-index:3}
+@media(max-width:600px){
+  .wolf-image-crop{inset:4% 0 16%}
+  .wolf-art-image{width:120%}
+}
