@@ -1495,3 +1495,33 @@ html[dir="rtl"] .detail-symbol{
   body::after,.wolf-art{animation:none!important}
   .reveal,.feature-card,.detail-card,.download-card{transition:none!important}
 }
+
+
+/* Reduce the oversized gap above the Arabic hero introduction. */
+html[dir="rtl"] .hero{
+  align-items:flex-start;
+  padding-top:34px;
+}
+html[dir="rtl"] .hero-copy:before{
+  margin-bottom:10px;
+}
+html[dir="rtl"] .hero h1{
+  margin-top:12px;
+}
+@media(max-width:850px){
+  html[dir="rtl"] .hero{
+    padding-top:28px;
+  }
+}
+@media(max-width:600px){
+  html[dir="rtl"] .hero{
+    min-height:650px;
+    padding:22px 18px 60px;
+  }
+  html[dir="rtl"] .hero-copy:before{
+    margin-bottom:8px;
+  }
+  html[dir="rtl"] .hero h1{
+    margin-top:10px;
+  }
+}
