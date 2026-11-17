@@ -1386,3 +1386,29 @@ html[dir="rtl"] .site-header .main-nav .nav-cta{
     direction:ltr;
   }
 }
+
+
+/* Optical size normalization: keep content icons compact and consistent. */
+.feature-icon,
+.detail-symbol{
+  display:flex;
+  align-items:center;
+  min-height:34px;
+}
+.feature-icon .site-icon,
+.detail-symbol .site-icon{
+  width:21px !important;
+  height:21px !important;
+  min-width:21px;
+  max-width:21px;
+  min-height:21px;
+  max-height:21px;
+  flex:0 0 21px;
+  overflow:hidden;
+}
+.feature-icon .site-icon{
+  stroke-width:1.55;
+}
+.detail-symbol .site-icon{
+  stroke-width:1.55;
+}
