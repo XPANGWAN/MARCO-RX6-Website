@@ -321,3 +321,62 @@ html[dir="rtl"] .site-header>.brand{direction:ltr}
   .site-header>.brand .brand-type{font-size:19px}
   .site-header>.header-actions{flex:0 1 auto;min-width:0;gap:6px}
 }
+
+
+/* Arabic hero: keep the large silver wolf beside the copy, as in English. */
+@media(max-width:600px){
+  html[dir="rtl"] .hero{
+    display:flex;
+    align-items:center;
+    min-height:740px;
+    padding:58px 16px 70px;
+  }
+  html[dir="rtl"] .hero-copy{
+    width:58%;
+    max-width:58%;
+    margin-left:auto;
+    position:relative;
+    z-index:4;
+  }
+  html[dir="rtl"] .hero h1{
+    font-size:clamp(43px,11vw,66px);
+    line-height:1.12;
+    overflow-wrap:anywhere;
+  }
+  html[dir="rtl"] .hero-description{
+    max-width:100%;
+    font-size:12px;
+  }
+  html[dir="rtl"] .hero-actions{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:10px;
+  }
+  html[dir="rtl"] .hero-actions .button{
+    max-width:100%;
+    min-height:44px;
+    padding:0 11px;
+    gap:8px;
+    font-size:9px;
+    white-space:nowrap;
+  }
+  html[dir="rtl"] .hero-actions .button span{font-size:12px}
+  html[dir="rtl"] .hero-footnote{
+    margin-top:30px;
+    font-size:7px;
+    letter-spacing:.5px;
+    flex-wrap:wrap;
+  }
+  html[dir="rtl"] .wolf-stage{
+    width:58vw;
+    height:58%;
+    left:-8%;
+    right:auto;
+    top:50%;
+    opacity:.62;
+    z-index:2;
+  }
+  html[dir="rtl"] .hero:after{
+    background:linear-gradient(270deg,#090a0c 0%,rgba(9,10,12,.78) 48%,rgba(9,10,12,.08) 100%);
+  }
+}
