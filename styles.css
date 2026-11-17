@@ -639,3 +639,48 @@ html[lang="ar"] .footer-wordmark{font-family:"Alexandria",sans-serif!important;l
 @media(max-width:600px){
   .footer-wordmark{font-size:17px}
 }
+
+
+/* A genuine typeface change: geometric Sora in English, IBM Plex Sans Arabic in Arabic. */
+html body,
+html body button,
+html body input,
+html body textarea,
+html body select{
+  font-family:"Sora",sans-serif!important;
+}
+html body h1,
+html body h2,
+html body h3,
+html body .brand-type,
+html body .download-card h3,
+html body .manifesto p{
+  font-family:"Sora",sans-serif!important;
+  font-weight:700;
+}
+html[lang="ar"] body,
+html[lang="ar"] body *,
+html[lang="ar"] body button,
+html[lang="ar"] body input,
+html[lang="ar"] body textarea,
+html[lang="ar"] body select{
+  font-family:"IBM Plex Sans Arabic",sans-serif!important;
+  letter-spacing:0!important;
+}
+html[lang="ar"] body h1,
+html[lang="ar"] body h2,
+html[lang="ar"] body h3,
+html[lang="ar"] body .brand-type,
+html[lang="ar"] body .manifesto p{
+  font-family:"IBM Plex Sans Arabic",sans-serif!important;
+  font-weight:700;
+}
+html[lang="ar"] body .hero-description,
+html[lang="ar"] body .intro-text p,
+html[lang="ar"] body .feature-card p,
+html[lang="ar"] body .download-card p,
+html[lang="ar"] body .community-row>div>p{
+  font-weight:400;
+}
+.footer-wordmark{font-family:"Sora",sans-serif!important}
+html[lang="ar"] .footer-wordmark{font-family:"IBM Plex Sans Arabic",sans-serif!important}
