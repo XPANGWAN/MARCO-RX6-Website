@@ -463,3 +463,60 @@ html[lang="ar"] .manifesto p{font-family:"IBM Plex Sans Arabic",sans-serif!impor
 .download-release-link{display:inline-flex;color:#d9dee6;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid rgba(220,226,235,.35);padding-bottom:6px}
 [dir="rtl"] .download-release-meta{text-align:start}
 @media(max-width:760px){.download-heading{align-items:flex-start;flex-direction:column;gap:14px}.download-release-meta{text-align:start}.download-grid{grid-template-columns:1fr}.download-card{min-height:0;padding:24px}.download-card p{min-height:0}}
+
+
+/* Mobile and Arabic typography correction — Tajawal, balanced hero, readable navigation */
+html[lang="ar"] body,
+html[lang="ar"] body *{
+  font-family:"Tajawal",sans-serif!important;
+  letter-spacing:0!important;
+}
+html[lang="ar"] body{font-weight:500;line-height:1.85}
+html[lang="ar"] h1,html[lang="ar"] h2,html[lang="ar"] h3,
+html[lang="ar"] .brand-type{font-weight:800;line-height:1.4}
+html[lang="ar"] .hero h1{font-size:clamp(54px,7.4vw,96px);line-height:1.28}
+html[lang="ar"] .intro h2,html[lang="ar"] .section-heading h2,
+html[lang="ar"] .download h2,html[lang="ar"] .community h2{
+  font-size:clamp(48px,6.4vw,82px);line-height:1.45
+}
+html[lang="ar"] .hero-description,html[lang="ar"] .intro-text p,
+html[lang="ar"] .feature-card p,html[lang="ar"] .download-card p,
+html[lang="ar"] .community-row>div>p{font-size:15px;line-height:2}
+html[lang="ar"] .button,html[lang="ar"] .main-nav a,
+html[lang="ar"] .section-kicker,html[lang="ar"] .eyebrow{font-weight:700}
+@media(max-width:760px){
+  .site-header{height:70px;padding-inline:14px;gap:8px}
+  .site-header>.brand .brand-mark{width:26px;height:30px}
+  .site-header>.brand .brand-type{font-size:18px}
+  .header-actions{gap:7px}
+  .menu-toggle{display:flex;flex-direction:column;gap:5px;padding:9px}
+  .main-nav{display:none;position:absolute;top:70px;left:0;right:0;padding:12px 20px 20px;
+    background:rgba(8,9,11,.98);border-bottom:1px solid var(--line);
+    backdrop-filter:blur(18px);flex-direction:column;align-items:stretch;gap:0}
+  .main-nav.open{display:flex}
+  .main-nav a{display:flex;padding:13px 4px;border-bottom:1px solid var(--line);font-size:12px}
+  .main-nav .nav-cta{margin-top:10px;padding:13px 14px}
+  .language-button{min-width:34px;height:30px;font-size:11px}
+  .hero{min-height:680px;padding:65px 20px 70px}
+  .hero-copy{width:100%;max-width:100%}
+  .hero h1{font-size:clamp(64px,14vw,94px)}
+  .hero-actions{align-items:flex-start;flex-direction:column;gap:12px}
+  .wolf-stage{width:88vw;height:46%;right:-22%;top:70%;opacity:.25}
+  html[dir="rtl"] .hero{min-height:700px;padding:58px 18px 70px}
+  html[dir="rtl"] .hero-copy{width:56%;max-width:56%;margin-left:auto;z-index:4}
+  html[dir="rtl"] .hero h1{font-size:clamp(46px,9vw,64px);line-height:1.4;margin-block:18px}
+  html[dir="rtl"] .hero-description{font-size:13px;line-height:1.9}
+  html[dir="rtl"] .hero-actions{align-items:flex-start;flex-direction:column;gap:10px}
+  html[dir="rtl"] .hero-actions .button{min-height:44px;padding-inline:10px;gap:8px;max-width:100%;white-space:normal}
+  html[dir="rtl"] .hero-actions .button span{font-size:12px}
+  html[dir="rtl"] .hero-footnote{font-size:9px;margin-top:26px}
+  html[dir="rtl"] .wolf-stage{width:48vw;height:48%;left:-7%;right:auto;top:51%;opacity:.43;z-index:1}
+  html[dir="rtl"] .hero:after{background:linear-gradient(270deg,#08090b 0%,rgba(8,9,11,.97) 46%,rgba(8,9,11,.3) 100%)}
+  html[lang="ar"] .intro h2,html[lang="ar"] .section-heading h2,
+  html[lang="ar"] .download h2,html[lang="ar"] .community h2{
+    font-size:clamp(39px,9vw,58px);line-height:1.5
+  }
+  html[lang="ar"] .hero-description,html[lang="ar"] .intro-text p,
+  html[lang="ar"] .feature-card p,html[lang="ar"] .download-card p,
+  html[lang="ar"] .community-row>div>p{font-size:13px}
+}
