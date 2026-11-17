@@ -380,3 +380,66 @@ html[dir="rtl"] .site-header>.brand{direction:ltr}
     background:linear-gradient(270deg,#090a0c 0%,rgba(9,10,12,.78) 48%,rgba(9,10,12,.08) 100%);
   }
 }
+
+
+/* Dedicated Arabic typography: clean IBM Plex Sans Arabic across the whole site. */
+html[lang="ar"] body,
+html[lang="ar"] body *{
+  font-family:"IBM Plex Sans Arabic",sans-serif!important;
+  letter-spacing:0!important;
+}
+html[lang="ar"] body{
+  line-height:1.85;
+  font-weight:400;
+  font-synthesis:none;
+  text-rendering:optimizeLegibility;
+}
+html[lang="ar"] h1,
+html[lang="ar"] h2,
+html[lang="ar"] h3,
+html[lang="ar"] .brand-type{
+  font-weight:700;
+  line-height:1.35;
+}
+html[lang="ar"] .hero h1{
+  line-height:1.28;
+  font-size:clamp(48px,7.2vw,92px);
+  margin-block:24px 20px;
+}
+html[lang="ar"] .intro h2,
+html[lang="ar"] .section-heading h2,
+html[lang="ar"] .download h2,
+html[lang="ar"] .community h2{
+  font-size:clamp(42px,6.2vw,76px);
+  line-height:1.4;
+  margin-block:24px 16px;
+}
+html[lang="ar"] .hero-description,
+html[lang="ar"] .intro-text p,
+html[lang="ar"] .feature-card p,
+html[lang="ar"] .download-panel>p,
+html[lang="ar"] .community-row>div>p{
+  line-height:1.95;
+  font-size:14px;
+}
+html[lang="ar"] .eyebrow,
+html[lang="ar"] .section-kicker,
+html[lang="ar"] .hero-footnote,
+html[lang="ar"] .button,
+html[lang="ar"] .main-nav a,
+html[lang="ar"] .language-button{
+  font-size:12px;
+  font-weight:600;
+}
+html[lang="ar"] .feature-card h3{font-size:21px;line-height:1.5}
+html[lang="ar"] .manifesto p{font-family:"IBM Plex Sans Arabic",sans-serif!important;line-height:1.5}
+@media(max-width:600px){
+  html[lang="ar"] .hero h1{font-size:clamp(43px,10.5vw,62px);line-height:1.32}
+  html[lang="ar"] .hero-description{font-size:12px;line-height:1.9}
+  html[lang="ar"] .intro h2,
+  html[lang="ar"] .section-heading h2,
+  html[lang="ar"] .download h2,
+  html[lang="ar"] .community h2{font-size:clamp(35px,9vw,54px);line-height:1.45}
+  html[lang="ar"] .button{font-size:11px;line-height:1.5}
+  html[lang="ar"] .feature-card h3{font-size:19px}
+}
