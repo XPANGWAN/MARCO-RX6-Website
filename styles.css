@@ -1414,12 +1414,18 @@ html[dir="rtl"] .site-header .main-nav .nav-cta{
 }
 
 
-/* Performance pass: reduce continuously painted effects and expensive filters. */
+/* Performance pass: keep silver lightning as brief, low-cost flashes. */
 .grain{display:none!important}
 body::after{
-  animation:none!important;
+  animation:stormFlash 12s steps(1,end) infinite!important;
   filter:none!important;
-  opacity:.09!important;
+  opacity:.10!important;
+}
+@keyframes stormFlash{
+  0%,72%,76%,100%{opacity:.10}
+  73%{opacity:.30}
+  74%{opacity:.12}
+  75%{opacity:.24}
 }
 .wolf-art{animation:none!important}
 .wolf-art-image{filter:none!important}
