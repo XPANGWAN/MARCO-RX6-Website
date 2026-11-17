@@ -38,6 +38,7 @@ export async function onRequest() {
       releaseNotes: notes,
       downloadPageUrl: DOWNLOAD_PAGE,
       publishedAt: release.published_at || null,
+      assets: (Array.isArray(release.assets) ? release.assets : []).map(asset => ({ name: asset.name, size: asset.size })),
       variants: [
         { id: "universal", fileName: "app-universal-release.apk" },
         { id: "arm64", fileName: "app-arm64-v8a-release.apk" },
