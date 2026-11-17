@@ -1335,3 +1335,11 @@ html[dir="rtl"] .detail-card h3{font-family:"IBM Plex Sans Arabic",sans-serif;le
 html[dir="rtl"] .detail-index{direction:ltr;text-align:left}
 @media(max-width:850px){.details-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.details-heading{align-items:flex-start;flex-direction:column;gap:18px}}
 @media(max-width:600px){.details{padding-top:76px;padding-bottom:82px}.details-grid{grid-template-columns:1fr}.detail-card{min-height:0;padding:24px}.detail-symbol{margin:18px 0 14px}.details-heading h2{font-size:clamp(48px,12vw,72px)}html[dir="rtl"] .details-heading{align-items:stretch}}
+
+
+/* Consistent vector icon system for feature and detail cards. */
+.site-icon{display:block;width:25px;height:25px;flex:0 0 auto;overflow:visible}
+.feature-icon .site-icon{width:25px;height:25px}
+.detail-symbol{display:flex;align-items:center;justify-content:flex-start;min-height:32px}
+.detail-symbol .site-icon{width:27px;height:27px}
+html[dir="rtl"] .detail-symbol{justify-content:flex-end}
