@@ -24,25 +24,31 @@ export async function onRequest(context) {
       }
     );
 
-    if (!releaseResponse.ok) {
-      return new Response("Release information is temporarily unavailable", {
-        status: 502
-      });
+    let downloadUrl = null;
+    let assetSize = null;
+
+    if (releaseResponse.ok) {
+      const release = await releaseResponse.json();
+      if (!release.draft && !release.prerelease) {
+        const asset = Array.isArray(release.assets)
+          ? release.assets.find(item => item.name === fileName)
+          : null;
+        if (asset && asset.browser_download_url) {
+          downloadUrl = asset.browser_download_url;
+          assetSize = asset.size;
+        }
+      }
     }
 
-    const release = await releaseResponse.json();
-    if (release.draft || release.prerelease) {
-      return new Response("No stable release is available", { status: 404 });
-    }
-
-    const asset = Array.isArray(release.assets)
-      ? release.assets.find(item => item.name === fileName)
-      : null;
-
-    if (!asset || !asset.browser_download_url) {
-      return new Response("This APK is not available in the latest release", {
-        status: 404
-      });
+    // Fallback to the confirmed V8.19 stable assets if GitHub's
+    // release metadata API is temporarily unavailable or rate-limited.
+    if (!downloadUrl) {
+      const stableFiles = {
+        universal: "app-universal-release.apk",
+        arm64: "app-arm64-v8a-release.apk",
+        arm32: "app-armeabi-v7a-release.apk"
+      };
+      downloadUrl = `https://github.com/XPANGWAN/Marco-RX6/releases/download/V8.19/${stableFiles[variant]}`;
     }
 
     // Forward byte-range headers so interrupted downloads can be resumed.
@@ -53,7 +59,7 @@ export async function onRequest(context) {
     if (ifRange) upstreamHeaders.set("If-Range", ifRange);
 
     // Follow GitHub's internal asset redirect on the server, not in the visitor's browser.
-    const upstream = await fetch(asset.browser_download_url, {
+    const upstream = await fetch(downloadUrl, {
       method: context.request.method === "HEAD" ? "HEAD" : "GET",
       headers: upstreamHeaders,
       redirect: "follow"
@@ -73,7 +79,7 @@ export async function onRequest(context) {
     headers.delete("Location");
 
     if (upstream.status === 200 && !headers.has("Content-Length")) {
-      headers.set("Content-Length", String(asset.size));
+      headers.set("Content-Length", String(assetSize || 0));
     }
 
     return new Response(
