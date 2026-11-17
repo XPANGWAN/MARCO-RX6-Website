@@ -536,7 +536,7 @@ html[lang="ar"] .section-kicker,html[lang="ar"] .eyebrow{font-weight:700}
 }
 .wolf-art-image{
   display:block;
-  width:112%;
+  width:78%;
   height:auto;
   max-width:none;
   object-fit:contain;
@@ -547,5 +547,5 @@ html[lang="ar"] .section-kicker,html[lang="ar"] .eyebrow{font-weight:700}
 .wolf-stage .wolf-caption{position:absolute;z-index:3}
 @media(max-width:600px){
   .wolf-image-crop{inset:4% 0 16%}
-  .wolf-art-image{width:120%}
+  .wolf-art-image{width:82%}
 }
