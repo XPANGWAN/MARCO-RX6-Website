@@ -443,3 +443,23 @@ html[lang="ar"] .manifesto p{font-family:"IBM Plex Sans Arabic",sans-serif!impor
   html[lang="ar"] .button{font-size:11px;line-height:1.5}
   html[lang="ar"] .feature-card h3{font-size:19px}
 }
+
+
+/* Release download choices */
+.download-heading{display:flex;align-items:end;justify-content:space-between;gap:28px;margin:28px 0 34px}
+.download-heading h2{margin:0 0 14px}
+.download-heading p{max-width:520px;color:var(--muted);margin:0}
+.download-release-meta{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--silver);text-align:end}
+.download-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.download-card{position:relative;display:flex;flex-direction:column;align-items:flex-start;min-height:290px;padding:28px;border:1px solid rgba(190,199,210,.2);background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.012));}
+.download-card:first-child{border-color:rgba(220,226,235,.48);background:linear-gradient(145deg,rgba(210,218,228,.12),rgba(255,255,255,.018))}
+.download-card-tag{font-size:.7rem;letter-spacing:.18em;color:#929ba8}
+.download-card h3{font-family:"Barlow Condensed",sans-serif;font-size:1.8rem;letter-spacing:.04em;margin:25px 0 10px}
+.download-card p{color:var(--muted);line-height:1.7;min-height:76px;margin:0 0 18px}
+.download-size{font-size:.78rem;color:#c5ccd5;letter-spacing:.08em;margin-top:auto;margin-bottom:18px}
+.download-card .button{width:100%;justify-content:space-between}
+.download-link.is-disabled{opacity:.55;pointer-events:none}
+.download-help{color:var(--muted);font-size:.9rem;margin:24px 0 12px}
+.download-release-link{display:inline-flex;color:#d9dee6;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid rgba(220,226,235,.35);padding-bottom:6px}
+[dir="rtl"] .download-release-meta{text-align:start}
+@media(max-width:760px){.download-heading{align-items:flex-start;flex-direction:column;gap:14px}.download-release-meta{text-align:start}.download-grid{grid-template-columns:1fr}.download-card{min-height:0;padding:24px}.download-card p{min-height:0}}
