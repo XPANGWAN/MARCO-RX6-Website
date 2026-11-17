@@ -1343,3 +1343,46 @@ html[dir="rtl"] .detail-index{direction:ltr;text-align:left}
 .detail-symbol{display:flex;align-items:center;justify-content:flex-start;min-height:32px}
 .detail-symbol .site-icon{width:27px;height:27px}
 html[dir="rtl"] .detail-symbol{justify-content:flex-end}
+
+
+/* Keep the horizontal header geometry identical in English and Arabic. */
+.site-header{
+  direction:ltr !important;
+}
+.site-header > .brand{
+  direction:ltr !important;
+  flex:0 0 auto;
+}
+.site-header > .header-actions{
+  direction:ltr !important;
+  flex-direction:row !important;
+}
+.site-header .main-nav{
+  direction:ltr !important;
+}
+html[dir="rtl"] .site-header .main-nav a{
+  direction:rtl;
+  text-align:center;
+}
+html[dir="rtl"] .site-header .main-nav .nav-cta{
+  direction:ltr;
+}
+.site-header .language-switch{
+  direction:ltr !important;
+  flex:0 0 auto;
+}
+@media(max-width:760px){
+  .site-header > .header-actions{
+    direction:ltr !important;
+    flex-direction:row !important;
+  }
+  .site-header .main-nav{
+    direction:rtl !important;
+  }
+  .site-header .main-nav a{
+    text-align:start;
+  }
+  .site-header .main-nav .nav-cta{
+    direction:ltr;
+  }
+}
