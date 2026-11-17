@@ -84,25 +84,25 @@
       ?{loading:"جارٍ التحقق من أحدث إصدار…",error:"تعذر تحميل معلومات الإصدار حالياً.",size:"حجم الملف",version:"أحدث إصدار"}
       :{loading:"Checking the latest release…",error:"Release information is temporarily unavailable.",size:"File size",version:"Latest release"};
     try{
-      const response=await fetch("https://api.github.com/repos/XPANGWAN/Marco-RX6/releases/latest",{headers:{Accept:"application/vnd.github+json"}});
+      const response=await fetch("/api/update",{headers:{Accept:"application/json","Cache-Control":"no-cache"}});
       if(!response.ok)throw new Error("No published stable release");
       const release=await response.json();
-      if(release.draft||release.prerelease)throw new Error("No stable release");
+      if(!release.versionName)throw new Error("No stable release");
       const assets=Array.isArray(release.assets)?release.assets:[];
       const variants=[
         {file:"app-universal-release.apk",index:0},
         {file:"app-arm64-v8a-release.apk",index:1},
         {file:"app-armeabi-v7a-release.apk",index:2}
       ];
-      if(meta)meta.textContent=messages.version+" · "+(release.tag_name||"");
-      if(releaseLink&&release.html_url)releaseLink.href=release.html_url;
+      if(meta)meta.textContent=messages.version+" · "+release.versionName;
+      if(releaseLink&&release.downloadPageUrl)releaseLink.href=release.downloadPageUrl;
       variants.forEach((variant,i)=>{
         const asset=assets.find(item=>item.name===variant.file);
         const card=cards[i];
         if(!card)return;
         const size=card.querySelector(".download-size");
         const link=card.querySelector(".download-link");
-        if(asset&&asset.browser_download_url){
+        if(asset){
           if(size)size.textContent=messages.size+" · "+formatBytes(asset.size);
           if(link){link.href="/download/"+(i===0?"universal":i===1?"arm64":"arm32");link.classList.remove("is-disabled");link.removeAttribute("aria-disabled");link.querySelector("span").textContent=lang==="ar"?"تحميل النسخة":"Download APK";}
         }else{
@@ -116,7 +116,7 @@
         const size=card.querySelector(".download-size");
         const link=card.querySelector(".download-link");
         if(size)size.textContent=lang==="ar"?"سيظهر الحجم عند نشر الإصدار":"File size shown when released";
-        if(link){link.href="https://github.com/XPANGWAN/Marco-RX6/releases";link.classList.remove("is-disabled");link.removeAttribute("aria-disabled");link.querySelector("span").textContent=lang==="ar"?"عرض الإصدارات":"View releases";}
+        if(link){link.href="/#download";link.classList.remove("is-disabled");link.removeAttribute("aria-disabled");link.querySelector("span").textContent=lang==="ar"?"إعادة المحاولة":"Try again";}
       });
     }
   }
