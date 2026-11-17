@@ -468,7 +468,7 @@ html[lang="ar"] .manifesto p{font-family:"IBM Plex Sans Arabic",sans-serif!impor
 /* Mobile and Arabic typography correction — Tajawal, balanced hero, readable navigation */
 html[lang="ar"] body,
 html[lang="ar"] body *{
-  font-family:"Tajawal",sans-serif!important;
+  font-family:"Alexandria",sans-serif!important;
   letter-spacing:0!important;
 }
 html[lang="ar"] body{font-weight:500;line-height:1.85}
@@ -593,4 +593,49 @@ body::after{
 }
 @media(prefers-reduced-motion:reduce){
   body::after{animation:none;opacity:.14}
+}
+
+
+/* Typography refresh: clean Manrope in English, balanced Alexandria in Arabic. */
+body,
+button,
+input,
+textarea,
+select{
+  font-family:"Manrope",sans-serif;
+}
+h1,h2,h3,.brand-type,.download-card h3,.manifesto p{
+  font-family:"Manrope",sans-serif;
+}
+html[lang="ar"] body,
+html[lang="ar"] body *,
+html[lang="ar"] button,
+html[lang="ar"] input,
+html[lang="ar"] textarea,
+html[lang="ar"] select{
+  font-family:"Alexandria",sans-serif!important;
+  letter-spacing:0!important;
+}
+html[lang="ar"] h1,
+html[lang="ar"] h2,
+html[lang="ar"] h3,
+html[lang="ar"] .brand-type{
+  font-weight:700;
+}
+.footer-wordmark{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  color:#e8ebef;
+  text-decoration:none;
+  font-family:"Manrope",sans-serif;
+  font-size:19px;
+  font-weight:800;
+  letter-spacing:1.2px;
+  white-space:nowrap;
+}
+.footer-wordmark b{color:#aeb5bf;font-weight:600}
+html[lang="ar"] .footer-wordmark{font-family:"Alexandria",sans-serif!important;letter-spacing:0}
+@media(max-width:600px){
+  .footer-wordmark{font-size:17px}
 }
