@@ -8,7 +8,7 @@
       experienceKicker:"01 / THE EXPERIENCE",experienceTitle:"YOUR GAMES.<br><span>YOUR SPACE.</span>",experienceText:"One place to organise your games, manage downloads and make the experience your own.",experienceSubtext:"Simple. Personal. Made for gamers.",
       featuresKicker:"02 / WHAT DEFINES US",featuresTitle:"EVERYTHING YOU<br><span>NEED.</span>",featuresIntro:"A focused gaming experience, without the clutter.",featureLibraryTitle:"YOUR LIBRARY",featureLibraryText:"Organise your collection in one place.",featureDownloadsTitle:"SMART DOWNLOADS",featureDownloadsText:"Manage downloads with clear progress and status.",featurePersonalTitle:"BUILT AROUND YOU",featurePersonalText:"Make the interface feel like yours.",
       manifesto:"YOUR LIBRARY.<br><span>YOUR RULES.</span>",downloadKicker:"03 / JOIN THE NEXT CHAPTER",downloadTitle:"READY TO JOIN<br><span>THE PACK?</span>",downloadText:"Follow our official channels for news and release updates.",downloadButton:"FOLLOW OFFICIAL UPDATES",downloadNote:"APP DOWNLOAD DETAILS COMING SOON",
-      communityKicker:"04 / STAY CONNECTED",communityTitle:"JOIN THE<br><span>PACK.</span>",communityText:"News, updates and community.",telegram:"TELEGRAM",youtube:"YOUTUBE",rights:"ALL RIGHTS RESERVED.",backTop:"BACK TO TOP ↑",backTopLabel:"Back to top"
+      communityKicker:"04 / STAY CONNECTED",communityTitle:"JOIN THE<br><span>PACK.</span>",communityText:"News, updates and community.",telegram:"TELEGRAM",youtube:"YOUTUBE",rights:"ALL RIGHTS RESERVED.",backTop:"BACK TO TOP ↑",backTopLabel:"Back to top",downloadLoading:"Checking the latest release…",downloadUnavailable:"Not available yet",universalDescription:"The recommended compatibility option for most supported Android phones.",arm64Description:"For modern Android phones using the 64-bit ARM architecture.",arm32Description:"For older Android phones using the 32-bit ARM architecture.",downloadHelp:"Not sure which version to choose? Universal APK is the simplest option.",allReleases:"View all releases ↗",downloadError:"Downloads are temporarily unavailable. Please try again later."
     },
     ar: {
       title:"MARCO RX6 — انضم إلى القطيع",description:"MARCO RX6 — تجربة مكتبة ألعاب صُممت للاعبين. اكتشف المنصة وتابع آخر الأخبار وانضم إلى مجتمعنا.",
@@ -17,7 +17,7 @@
       experienceKicker:"01 / التجربة",experienceTitle:"ألعابك.<br><span>مساحتك الخاصة.</span>",experienceText:"مكان واحد لتنظيم ألعابك وإدارة التنزيلات وتخصيص تجربتك كما تحب.",experienceSubtext:"بسيط. شخصي. صُنع للاعبين.",
       featuresKicker:"02 / ما يميزنا",featuresTitle:"كل ما<br><span>تحتاج إليه.</span>",featuresIntro:"تجربة ألعاب مركّزة، بعيداً عن الفوضى.",featureLibraryTitle:"مكتبتك",featureLibraryText:"نظّم مجموعتك في مكان واحد.",featureDownloadsTitle:"تنزيلات ذكية",featureDownloadsText:"تابع التنزيلات مع عرض واضح للتقدم والحالة.",featurePersonalTitle:"مصمم لك",featurePersonalText:"اجعل الواجهة تعكس أسلوبك.",
       manifesto:"مكتبتك.<br><span>قواعدك.</span>",downloadKicker:"03 / ابدأ الفصل القادم",downloadTitle:"هل أنت مستعد<br><span>للانضمام؟</span>",downloadText:"تابع قنواتنا الرسمية لمعرفة الأخبار وتحديثات الإصدار.",downloadButton:"تابع التحديثات الرسمية",downloadNote:"تفاصيل تحميل التطبيق قريباً",
-      communityKicker:"04 / ابقَ على تواصل",communityTitle:"انضم إلى<br><span>القطيع.</span>",communityText:"الأخبار والتحديثات والمجتمع.",telegram:"تيليغرام",youtube:"يوتيوب",rights:"جميع الحقوق محفوظة.",backTop:"العودة إلى الأعلى ↑",backTopLabel:"العودة إلى الأعلى"
+      communityKicker:"04 / ابقَ على تواصل",communityTitle:"انضم إلى<br><span>القطيع.</span>",communityText:"الأخبار والتحديثات والمجتمع.",telegram:"تيليغرام",youtube:"يوتيوب",rights:"جميع الحقوق محفوظة.",backTop:"العودة إلى الأعلى ↑",backTopLabel:"العودة إلى الأعلى",downloadLoading:"جارٍ التحقق من أحدث إصدار…",downloadUnavailable:"غير متاح حالياً",universalDescription:"الخيار الأكثر توافقاً مع معظم هواتف Android المدعومة.",arm64Description:"للهواتف الحديثة التي تستخدم معمارية ARM ‏64-bit.",arm32Description:"للهواتف الأقدم التي تستخدم معمارية ARM ‏32-bit.",downloadHelp:"لست متأكداً من النسخة المناسبة؟ اختر Universal APK.",allReleases:"عرض جميع الإصدارات ↗",downloadError:"التنزيلات غير متاحة مؤقتاً. حاول مرة أخرى لاحقاً."
     }
   };
   const root=document.documentElement;
@@ -72,6 +72,61 @@
   let initial="en";
   try{initial=localStorage.getItem("marco-rx6-language")||"en"}catch(error){}
   setLanguage(initial);
+
+  // Load the three official APK variants from the latest stable GitHub release.
+  async function loadDownloads(){
+    const cards=[...document.querySelectorAll(".download-card")];
+    const meta=document.getElementById("release-meta");
+    const releaseLink=document.getElementById("release-page-link");
+    const lang=root.lang==="ar"?"ar":"en";
+    const messages=lang==="ar"
+      ?{loading:"جارٍ التحقق من أحدث إصدار…",error:"تعذر تحميل معلومات الإصدار حالياً.",size:"حجم الملف",version:"أحدث إصدار"}
+      :{loading:"Checking the latest release…",error:"Release information is temporarily unavailable.",size:"File size",version:"Latest release"};
+    try{
+      const response=await fetch("https://api.github.com/repos/XPANGWAN/Marco-RX6/releases/latest",{headers:{Accept:"application/vnd.github+json"}});
+      if(!response.ok)throw new Error("No published stable release");
+      const release=await response.json();
+      if(release.draft||release.prerelease)throw new Error("No stable release");
+      const assets=Array.isArray(release.assets)?release.assets:[];
+      const variants=[
+        {file:"app-universal-release.apk",index:0},
+        {file:"app-arm64-v8a-release.apk",index:1},
+        {file:"app-armeabi-v7a-release.apk",index:2}
+      ];
+      if(meta)meta.textContent=messages.version+" · "+(release.tag_name||"");
+      if(releaseLink&&release.html_url)releaseLink.href=release.html_url;
+      variants.forEach((variant,i)=>{
+        const asset=assets.find(item=>item.name===variant.file);
+        const card=cards[i];
+        if(!card)return;
+        const size=card.querySelector(".download-size");
+        const link=card.querySelector(".download-link");
+        if(asset&&asset.browser_download_url){
+          if(size)size.textContent=messages.size+" · "+formatBytes(asset.size);
+          if(link){link.href=asset.browser_download_url;link.classList.remove("is-disabled");link.removeAttribute("aria-disabled");link.querySelector("span").textContent=lang==="ar"?"تحميل النسخة":"Download APK";}
+        }else{
+          if(size)size.textContent=lang==="ar"?"لم تُرفق هذه النسخة بهذا الإصدار":"Not included in this release";
+          if(link){link.href=release.html_url||"#download";link.classList.add("is-disabled");link.setAttribute("aria-disabled","true");link.querySelector("span").textContent=lang==="ar"?"غير متاحة":"Unavailable";}
+        }
+      });
+    }catch(error){
+      if(meta)meta.textContent=messages.error;
+      cards.forEach(card=>{
+        const size=card.querySelector(".download-size");
+        const link=card.querySelector(".download-link");
+        if(size)size.textContent=lang==="ar"?"سيظهر الحجم عند نشر الإصدار":"File size shown when released";
+        if(link){link.href="https://github.com/XPANGWAN/Marco-RX6/releases";link.classList.remove("is-disabled");link.removeAttribute("aria-disabled");link.querySelector("span").textContent=lang==="ar"?"عرض الإصدارات":"View releases";}
+      });
+    }
+  }
+  function formatBytes(bytes){
+    if(!Number.isFinite(bytes)||bytes<=0)return "—";
+    const units=["B","KB","MB","GB"];
+    const index=Math.min(Math.floor(Math.log(bytes)/Math.log(1024)),units.length-1);
+    return (bytes/Math.pow(1024,index)).toFixed(index===0?0:1)+" "+units[index];
+  }
+  loadDownloads();
+
   const year=document.getElementById("year");
   if(year)year.textContent=new Date().getFullYear();
 
