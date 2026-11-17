@@ -298,3 +298,26 @@ body{
 }
 .floating-top:hover{background:rgba(190,198,208,.13);border-color:#f0f2f5}
 :focus-visible{outline-color:#e5e8ed}
+
+
+/* Keep the emblem and MARCO RX6 wordmark on one line in every language. */
+.site-header{flex-wrap:nowrap}
+.site-header>.brand{
+  display:inline-flex;
+  flex:0 0 auto;
+  flex-direction:row;
+  flex-wrap:nowrap;
+  white-space:nowrap;
+  direction:ltr;
+  min-width:max-content;
+}
+.site-header>.brand .brand-mark,
+.site-header>.brand .brand-type{flex:0 0 auto;white-space:nowrap}
+html[dir="rtl"] .site-header>.brand{direction:ltr}
+@media(max-width:600px){
+  .site-header{gap:8px}
+  .site-header>.brand{gap:7px}
+  .site-header>.brand .brand-mark{width:27px;height:31px}
+  .site-header>.brand .brand-type{font-size:19px}
+  .site-header>.header-actions{flex:0 1 auto;min-width:0;gap:6px}
+}
