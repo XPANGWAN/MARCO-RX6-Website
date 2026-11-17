@@ -60,14 +60,14 @@
       const nav=document.querySelector(".main-nav");
       const open=nav.classList.toggle("open");
       menuButton.setAttribute("aria-expanded",String(open));
-      menuButton.setAttribute("aria-label",open?"Close navigation":"Open navigation");
+      menuButton.setAttribute("aria-label",open?(root.lang==="ar"?"إغلاق القائمة":"Close navigation"):(root.lang==="ar"?"فتح القائمة":"Open navigation"));
       return;
     }
     if(event.target.closest(".main-nav a")){
       const nav=document.querySelector(".main-nav");
       const toggle=document.querySelector(".menu-toggle");
       nav.classList.remove("open");
-      if(toggle){toggle.setAttribute("aria-expanded","false");toggle.setAttribute("aria-label","Open navigation")}
+      if(toggle){toggle.setAttribute("aria-expanded","false");toggle.setAttribute("aria-label",root.lang==="ar"?"فتح القائمة":"Open navigation")}
     }
   });
   let initial="en";
@@ -167,7 +167,7 @@
     const toggle=document.querySelector(".menu-toggle");
     if(nav&&nav.classList.contains("open")){
       nav.classList.remove("open");
-      if(toggle){toggle.setAttribute("aria-expanded","false");toggle.setAttribute("aria-label","Open navigation");toggle.focus()}
+      if(toggle){toggle.setAttribute("aria-expanded","false");toggle.setAttribute("aria-label",root.lang==="ar"?"فتح القائمة":"Open navigation");toggle.focus()}
     }
   });
 
