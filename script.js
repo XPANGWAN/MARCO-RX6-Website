@@ -7,7 +7,7 @@
       eyebrow:"THE OFFICIAL MARCO RX6 EXPERIENCE",heroTitle:"BUILT FOR<br><span>THE PACK.</span>",heroDescription:"A cleaner home for your gaming collection.",heroButton:"EXPLORE MARCO RX6",discoverButton:"DISCOVER MORE",officialLabel:"MARCO RX6 · OFFICIAL WEBSITE",wolfCaption:"INSTINCT · PRECISION · UNITY",scrollCue:"SCROLL TO EXPLORE",
       experienceKicker:"01 / THE EXPERIENCE",experienceTitle:"YOUR GAMES.<br><span>YOUR SPACE.</span>",experienceText:"One place to organise your games, manage downloads and make the experience your own.",experienceSubtext:"Simple. Personal. Made for gamers.",
       featuresKicker:"02 / WHAT DEFINES US",featuresTitle:"EVERYTHING YOU<br><span>NEED.</span>",featuresIntro:"A focused gaming experience, without the clutter.",featureLibraryTitle:"YOUR LIBRARY",featureLibraryText:"Organise your collection in one place.",featureDownloadsTitle:"SMART DOWNLOADS",featureDownloadsText:"Manage downloads with clear progress and status.",featurePersonalTitle:"BUILT AROUND YOU",featurePersonalText:"Make the interface feel like yours.",
-      manifesto:"YOUR LIBRARY.<br><span>YOUR RULES.</span>",downloadKicker:"03 / JOIN THE NEXT CHAPTER",downloadTitle:"READY TO JOIN<br><span>THE PACK?</span>",downloadText:"Follow our official channels for news and release updates.",downloadButton:"FOLLOW OFFICIAL UPDATES",downloadNote:"APP DOWNLOAD DETAILS COMING SOON",
+      manifesto:"YOUR LIBRARY.<br><span>YOUR RULES.</span>",downloadKicker:"03 / DOWNLOAD THE APP",downloadTitle:"CHOOSE YOUR<br><span>MARCO RX6.</span>",downloadText:"Choose the APK that matches your Android device.",downloadButton:"FOLLOW OFFICIAL UPDATES",downloadNote:"APP DOWNLOAD DETAILS COMING SOON",
       communityKicker:"04 / STAY CONNECTED",communityTitle:"JOIN THE<br><span>PACK.</span>",communityText:"News, updates and community.",telegram:"TELEGRAM",youtube:"YOUTUBE",rights:"ALL RIGHTS RESERVED.",backTop:"BACK TO TOP ↑",backTopLabel:"Back to top",downloadLoading:"Checking the latest release…",downloadUnavailable:"Not available yet",universalDescription:"The recommended compatibility option for most supported Android phones.",arm64Description:"For modern Android phones using the 64-bit ARM architecture.",arm32Description:"For older Android phones using the 32-bit ARM architecture.",downloadHelp:"Not sure which version to choose? Universal APK is the simplest option.",allReleases:"View all releases ↗",downloadError:"Downloads are temporarily unavailable. Please try again later."
     },
     ar: {
@@ -16,7 +16,7 @@
       eyebrow:"التجربة الرسمية لـ MARCO RX6",heroTitle:"صُمّم<br><span>للقطيع.</span>",heroDescription:"مساحة أكثر تنظيماً لمجموعة ألعابك.",heroButton:"اكتشف MARCO RX6",discoverButton:"اكتشف المزيد",officialLabel:"MARCO RX6 · الموقع الرسمي",wolfCaption:"غريزة · دقة · انتماء",scrollCue:"اكتشف المزيد",
       experienceKicker:"01 / التجربة",experienceTitle:"ألعابك.<br><span>مساحتك الخاصة.</span>",experienceText:"مكان واحد لتنظيم ألعابك وإدارة التنزيلات وتخصيص تجربتك كما تحب.",experienceSubtext:"بسيط. شخصي. صُنع للاعبين.",
       featuresKicker:"02 / ما يميزنا",featuresTitle:"كل ما<br><span>تحتاج إليه.</span>",featuresIntro:"تجربة ألعاب مركّزة، بعيداً عن الفوضى.",featureLibraryTitle:"مكتبتك",featureLibraryText:"نظّم مجموعتك في مكان واحد.",featureDownloadsTitle:"تنزيلات ذكية",featureDownloadsText:"تابع التنزيلات مع عرض واضح للتقدم والحالة.",featurePersonalTitle:"مصمم لك",featurePersonalText:"اجعل الواجهة تعكس أسلوبك.",
-      manifesto:"مكتبتك.<br><span>قواعدك.</span>",downloadKicker:"03 / ابدأ الفصل القادم",downloadTitle:"هل أنت مستعد<br><span>للانضمام؟</span>",downloadText:"تابع قنواتنا الرسمية لمعرفة الأخبار وتحديثات الإصدار.",downloadButton:"تابع التحديثات الرسمية",downloadNote:"تفاصيل تحميل التطبيق قريباً",
+      manifesto:"مكتبتك.<br><span>قواعدك.</span>",downloadKicker:"03 / تحميل التطبيق",downloadTitle:"اختر نسخة<br><span>MARCO RX6.</span>",downloadText:"اختر ملف APK المتوافق مع هاتف Android الخاص بك.",downloadButton:"تابع التحديثات الرسمية",downloadNote:"تفاصيل تحميل التطبيق قريباً",
       communityKicker:"04 / ابقَ على تواصل",communityTitle:"انضم إلى<br><span>القطيع.</span>",communityText:"الأخبار والتحديثات والمجتمع.",telegram:"تيليغرام",youtube:"يوتيوب",rights:"جميع الحقوق محفوظة.",backTop:"العودة إلى الأعلى ↑",backTopLabel:"العودة إلى الأعلى",downloadLoading:"جارٍ التحقق من أحدث إصدار…",downloadUnavailable:"غير متاح حالياً",universalDescription:"الخيار الأكثر توافقاً مع معظم هواتف Android المدعومة.",arm64Description:"للهواتف الحديثة التي تستخدم معمارية ARM ‏64-bit.",arm32Description:"للهواتف الأقدم التي تستخدم معمارية ARM ‏32-bit.",downloadHelp:"لست متأكداً من النسخة المناسبة؟ اختر Universal APK.",allReleases:"عرض جميع الإصدارات ↗",downloadError:"التنزيلات غير متاحة مؤقتاً. حاول مرة أخرى لاحقاً."
     }
   };
@@ -50,6 +50,7 @@
       btn.setAttribute("aria-pressed",String(active));
     });
     try{localStorage.setItem("marco-rx6-language",lang)}catch(error){}
+    if(typeof loadDownloads==="function")loadDownloads();
   }
   document.addEventListener("click",event=>{
     const languageButton=event.target.closest("[data-language]");
