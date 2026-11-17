@@ -919,3 +919,204 @@ html[dir="rtl"] .intro:after{right:auto;left:10%}
   html[lang="ar"] .hero-copy:after{right:-8px}
   html[dir="rtl"] .intro:after{left:7%}
 }
+
+
+/* Arabic is a layout mode, not only translated copy. */
+html[dir="rtl"] body{
+  font-family:"IBM Plex Sans Arabic",sans-serif;
+  text-align:right;
+}
+html[dir="rtl"] .site-header{
+  direction:rtl;
+}
+html[dir="rtl"] .brand-type{
+  direction:ltr;
+}
+html[dir="rtl"] .header-actions{
+  direction:rtl;
+}
+html[dir="rtl"] .main-nav{
+  direction:rtl;
+  flex-direction:row;
+}
+html[dir="rtl"] .main-nav .nav-cta{
+  flex-direction:row-reverse;
+}
+html[dir="rtl"] .main-nav .nav-cta span{
+  padding-left:0;
+  padding-right:12px;
+}
+html[dir="rtl"] .hero{
+  justify-content:flex-end;
+}
+html[dir="rtl"] .hero-copy{
+  text-align:right;
+  margin-left:auto;
+  margin-right:0;
+}
+html[dir="rtl"] .eyebrow{
+  flex-direction:row-reverse;
+  justify-content:flex-end;
+  letter-spacing:0;
+}
+html[dir="rtl"] .hero h1,
+html[dir="rtl"] .intro h2,
+html[dir="rtl"] .section-heading h2,
+html[dir="rtl"] .download h2,
+html[dir="rtl"] .community h2{
+  font-family:"IBM Plex Sans Arabic",sans-serif;
+  letter-spacing:0;
+  line-height:1.35;
+  font-weight:700;
+}
+html[dir="rtl"] .hero-description,
+html[dir="rtl"] .intro-text,
+html[dir="rtl"] .section-heading>p,
+html[dir="rtl"] .feature-card,
+html[dir="rtl"] .download-heading,
+html[dir="rtl"] .download-card,
+html[dir="rtl"] .download-help,
+html[dir="rtl"] .community-row>div,
+html[dir="rtl"] .social-links,
+html[dir="rtl"] .site-footer{
+  text-align:right;
+}
+html[dir="rtl"] .hero-actions{
+  flex-direction:row-reverse;
+  justify-content:flex-end;
+}
+html[dir="rtl"] .button{
+  flex-direction:row-reverse;
+  letter-spacing:0;
+}
+html[dir="rtl"] .hero-footnote{
+  flex-direction:row-reverse;
+  justify-content:flex-end;
+  letter-spacing:0;
+}
+html[dir="rtl"] .scroll-cue{
+  left:auto;
+  right:7.2%;
+  flex-direction:row-reverse;
+  letter-spacing:0;
+}
+html[dir="rtl"] .intro-grid{
+  direction:rtl;
+  grid-template-columns:1.1fr .9fr;
+}
+html[dir="rtl"] .intro-text{
+  justify-self:start;
+}
+html[dir="rtl"] .section-heading{
+  direction:rtl;
+}
+html[dir="rtl"] .feature-grid,
+html[dir="rtl"] .download-grid{
+  direction:rtl;
+}
+html[dir="rtl"] .feature-card:after{
+  right:auto;
+  left:0;
+  border-right:0;
+  border-left:1px solid rgba(230,237,246,.5);
+}
+html[dir="rtl"] .card-rule{
+  left:auto;
+  right:30px;
+}
+html[dir="rtl"] .manifesto{
+  direction:rtl;
+}
+html[dir="rtl"] .download-heading{
+  direction:rtl;
+}
+html[dir="rtl"] .download-card-tag{
+  direction:ltr;
+}
+html[dir="rtl"] .download-card .button{
+  justify-content:space-between;
+}
+html[dir="rtl"] .download-card:before{
+  right:auto;
+  left:-38px;
+}
+html[dir="rtl"] .community-row{
+  direction:rtl;
+}
+html[dir="rtl"] .social-links a{
+  flex-direction:row-reverse;
+}
+html[dir="rtl"] .social-links a:hover{
+  padding-left:0;
+  padding-right:12px;
+}
+html[dir="rtl"] .site-footer{
+  direction:rtl;
+}
+html[dir="rtl"] .footer-wordmark{
+  direction:ltr;
+}
+html[dir="rtl"] .section-kicker{
+  flex-direction:row-reverse;
+  justify-content:flex-end;
+  letter-spacing:0;
+}
+html[dir="rtl"] .intro:after{
+  right:auto;
+  left:10%;
+}
+html[dir="rtl"] .hero-copy:after{
+  left:auto;
+  right:-22px;
+}
+html[dir="rtl"] .download-release-link{
+  display:inline-block;
+}
+@media(max-width:850px){
+  html[dir="rtl"] .main-nav{
+    align-items:stretch;
+    text-align:right;
+  }
+  html[dir="rtl"] .intro-grid{
+    grid-template-columns:1fr;
+  }
+  html[dir="rtl"] .intro-text{
+    justify-self:stretch;
+  }
+  html[dir="rtl"] .section-heading{
+    align-items:flex-start;
+  }
+}
+@media(max-width:600px){
+  html[dir="rtl"] .hero{
+    justify-content:flex-start;
+  }
+  html[dir="rtl"] .hero-copy{
+    margin-right:0;
+  }
+  html[dir="rtl"] .hero-actions{
+    align-items:stretch;
+  }
+  html[dir="rtl"] .scroll-cue{
+    right:7%;
+    left:auto;
+  }
+  html[dir="rtl"] .section-heading,
+  html[dir="rtl"] .community-row{
+    align-items:stretch;
+  }
+  html[dir="rtl"] .community-row{
+    flex-direction:column;
+  }
+  html[dir="rtl"] .social-links{
+    width:100%;
+  }
+  html[dir="rtl"] .site-footer{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  html[dir="rtl"] .intro:after{
+    left:7%;
+    right:auto;
+  }
+}
