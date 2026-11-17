@@ -40,15 +40,11 @@ export async function onRequest(context) {
       }
     }
 
-    // Fallback to the confirmed V8.19 stable assets if GitHub's
-    // release metadata API is temporarily unavailable or rate-limited.
     if (!downloadUrl) {
-      const stableFiles = {
-        universal: "app-universal-release.apk",
-        arm64: "app-arm64-v8a-release.apk",
-        arm32: "app-armeabi-v7a-release.apk"
-      };
-      downloadUrl = `https://github.com/XPANGWAN/Marco-RX6/releases/download/V8.19/${stableFiles[variant]}`;
+      return new Response("This APK variant is not available in the latest stable release", {
+        status: 503,
+        headers: { "Cache-Control": "no-store" }
+      });
     }
 
     // Forward byte-range headers so interrupted downloads can be resumed.
