@@ -24,3 +24,12 @@ html[dir="rtl"] .back-top{text-align:left}
   html[dir="rtl"] .wolf-stage{right:auto;left:-19%}
   html[dir="rtl"] .community-row{text-align:right}
 }
+
+@media(max-width:600px){
+  .main-nav{display:flex;position:static;padding:0;background:transparent;border:0;flex-direction:row;align-items:center;gap:8px}
+  .main-nav a{display:none;padding:7px 0;border:0;font-size:8px}
+  .main-nav .nav-cta{display:inline-flex;margin:0;padding:9px 10px;font-size:8px;white-space:nowrap}
+  .header-actions{gap:7px}
+  .language-switch{margin:0}
+  .language-button{min-width:27px;height:27px;padding:0 6px}
+}
