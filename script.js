@@ -8,7 +8,7 @@
       experienceKicker:"01 / THE EXPERIENCE",experienceTitle:"YOUR GAMES.<br><span>YOUR SPACE.</span>",experienceText:"One place to organise your games, manage downloads and make the experience your own.",experienceSubtext:"Simple. Personal. Made for gamers.",
       featuresKicker:"02 / WHAT DEFINES US",featuresTitle:"EVERYTHING YOU<br><span>NEED.</span>",featuresIntro:"A focused gaming experience, without the clutter.",featureLibraryTitle:"YOUR LIBRARY",featureLibraryText:"Organise your collection in one place.",featureDownloadsTitle:"SMART DOWNLOADS",featureDownloadsText:"Manage downloads with clear progress and status.",featurePersonalTitle:"BUILT AROUND YOU",featurePersonalText:"Make the interface feel like yours.",
       manifesto:"YOUR LIBRARY.<br><span>YOUR RULES.</span>",downloadKicker:"03 / JOIN THE NEXT CHAPTER",downloadTitle:"READY TO JOIN<br><span>THE PACK?</span>",downloadText:"Follow our official channels for news and release updates.",downloadButton:"FOLLOW OFFICIAL UPDATES",downloadNote:"APP DOWNLOAD DETAILS COMING SOON",
-      communityKicker:"04 / STAY CONNECTED",communityTitle:"JOIN THE<br><span>PACK.</span>",communityText:"News, updates and community.",telegram:"TELEGRAM",youtube:"YOUTUBE",rights:"ALL RIGHTS RESERVED.",backTop:"BACK TO TOP ↑"
+      communityKicker:"04 / STAY CONNECTED",communityTitle:"JOIN THE<br><span>PACK.</span>",communityText:"News, updates and community.",telegram:"TELEGRAM",youtube:"YOUTUBE",rights:"ALL RIGHTS RESERVED.",backTop:"BACK TO TOP ↑",backTopLabel:"Back to top"
     },
     ar: {
       title:"MARCO RX6 — انضم إلى القطيع",description:"MARCO RX6 — تجربة مكتبة ألعاب صُممت للاعبين. اكتشف المنصة وتابع آخر الأخبار وانضم إلى مجتمعنا.",
@@ -17,7 +17,7 @@
       experienceKicker:"01 / التجربة",experienceTitle:"ألعابك.<br><span>مساحتك الخاصة.</span>",experienceText:"مكان واحد لتنظيم ألعابك وإدارة التنزيلات وتخصيص تجربتك كما تحب.",experienceSubtext:"بسيط. شخصي. صُنع للاعبين.",
       featuresKicker:"02 / ما يميزنا",featuresTitle:"كل ما<br><span>تحتاج إليه.</span>",featuresIntro:"تجربة ألعاب مركّزة، بعيداً عن الفوضى.",featureLibraryTitle:"مكتبتك",featureLibraryText:"نظّم مجموعتك في مكان واحد.",featureDownloadsTitle:"تنزيلات ذكية",featureDownloadsText:"تابع التنزيلات مع عرض واضح للتقدم والحالة.",featurePersonalTitle:"مصمم لك",featurePersonalText:"اجعل الواجهة تعكس أسلوبك.",
       manifesto:"مكتبتك.<br><span>قواعدك.</span>",downloadKicker:"03 / ابدأ الفصل القادم",downloadTitle:"هل أنت مستعد<br><span>للانضمام؟</span>",downloadText:"تابع قنواتنا الرسمية لمعرفة الأخبار وتحديثات الإصدار.",downloadButton:"تابع التحديثات الرسمية",downloadNote:"تفاصيل تحميل التطبيق قريباً",
-      communityKicker:"04 / ابقَ على تواصل",communityTitle:"انضم إلى<br><span>القطيع.</span>",communityText:"الأخبار والتحديثات والمجتمع.",telegram:"تيليغرام",youtube:"يوتيوب",rights:"جميع الحقوق محفوظة.",backTop:"العودة إلى الأعلى ↑"
+      communityKicker:"04 / ابقَ على تواصل",communityTitle:"انضم إلى<br><span>القطيع.</span>",communityText:"الأخبار والتحديثات والمجتمع.",telegram:"تيليغرام",youtube:"يوتيوب",rights:"جميع الحقوق محفوظة.",backTop:"العودة إلى الأعلى ↑",backTopLabel:"العودة إلى الأعلى"
     }
   };
   const root=document.documentElement;
@@ -74,6 +74,47 @@
   setLanguage(initial);
   const year=document.getElementById("year");
   if(year)year.textContent=new Date().getFullYear();
+
+  // Subtle page progress and contextual navigation state.
+  const progressFill=document.getElementById("scroll-progress-fill");
+  const topButton=document.querySelector(".floating-top");
+  let scrollTicking=false;
+  function updateScrollUI(){
+    const maxScroll=document.documentElement.scrollHeight-window.innerHeight;
+    const progress=maxScroll>0?(window.scrollY/maxScroll)*100:0;
+    if(progressFill)progressFill.style.width=progress+"%";
+    if(topButton)topButton.classList.toggle("is-visible",window.scrollY>420);
+    scrollTicking=false;
+  }
+  window.addEventListener("scroll",()=>{
+    if(!scrollTicking){window.requestAnimationFrame(updateScrollUI);scrollTicking=true}
+  },{passive:true});
+  updateScrollUI();
+  const navLinks=[...document.querySelectorAll('.main-nav a[href^="#"]')];
+  const sections=navLinks.map(link=>document.querySelector(link.getAttribute("href"))).filter(Boolean);
+  if("IntersectionObserver"in window&&sections.length){
+    const sectionObserver=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(!entry.isIntersecting)return;
+        navLinks.forEach(link=>{
+          const active=link.getAttribute("href")==="#"+entry.target.id;
+          if(active)link.setAttribute("aria-current","location");
+          else link.removeAttribute("aria-current");
+        });
+      });
+    },{rootMargin:"-35% 0px -55% 0px",threshold:0});
+    sections.forEach(section=>sectionObserver.observe(section));
+  }
+  document.addEventListener("keydown",event=>{
+    if(event.key!=="Escape")return;
+    const nav=document.querySelector(".main-nav");
+    const toggle=document.querySelector(".menu-toggle");
+    if(nav&&nav.classList.contains("open")){
+      nav.classList.remove("open");
+      if(toggle){toggle.setAttribute("aria-expanded","false");toggle.setAttribute("aria-label","Open navigation");toggle.focus()}
+    }
+  });
+
   const targets=document.querySelectorAll(".intro-grid,.feature-card,.manifesto p,.download-panel,.community-row");
   targets.forEach(el=>el.classList.add("reveal"));
   if("IntersectionObserver"in window){
