@@ -4,91 +4,75 @@ const FILES = {
   arm32: "app-armeabi-v7a-release.apk"
 };
 
+const RELEASE_API =
+  "https://api.github.com/repos/XPANGWAN/Marco-RX6/releases/latest";
+
 export async function onRequest(context) {
   const variant = context.params.variant;
   const fileName = FILES[variant];
+
   if (!fileName) {
-    return new Response("Unknown download", { status: 404 });
+    return new Response("Unknown download variant", {
+      status: 404,
+      headers: { "Cache-Control": "no-store" }
+    });
   }
 
   try {
-    // Resolve the latest stable release and its exact APK asset.
-    const releaseResponse = await fetch(
-      "https://api.github.com/repos/XPANGWAN/Marco-RX6/releases/latest",
-      {
-        headers: {
-          Accept: "application/vnd.github+json",
-          "X-GitHub-Api-Version": "2022-11-28"
-        },
-        cf: { cacheTtl: 300, cacheEverything: true }
-      }
-    );
+    // GitHub's API requires a User-Agent. Without it, the lookup can fail
+    // before the route ever sees the APK assets.
+    const releaseResponse = await fetch(RELEASE_API, {
+      headers: {
+        Accept: "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+        "User-Agent": "MARCO-RX6-Website"
+      },
+      cf: { cacheTtl: 30, cacheEverything: true }
+    });
 
-    let downloadUrl = null;
-    let assetSize = null;
-
-    if (releaseResponse.ok) {
-      const release = await releaseResponse.json();
-      if (!release.draft && !release.prerelease) {
-        const asset = Array.isArray(release.assets)
-          ? release.assets.find(item => item.name === fileName)
-          : null;
-        if (asset && asset.browser_download_url) {
-          downloadUrl = asset.browser_download_url;
-          assetSize = asset.size;
-        }
-      }
-    }
-
-    if (!downloadUrl) {
-      return new Response("This APK variant is not available in the latest stable release", {
+    if (!releaseResponse.ok) {
+      return new Response("Release information is temporarily unavailable", {
         status: 503,
         headers: { "Cache-Control": "no-store" }
       });
     }
 
-    // Forward byte-range headers so interrupted downloads can be resumed.
-    const upstreamHeaders = new Headers();
-    const range = context.request.headers.get("Range");
-    const ifRange = context.request.headers.get("If-Range");
-    if (range) upstreamHeaders.set("Range", range);
-    if (ifRange) upstreamHeaders.set("If-Range", ifRange);
-
-    // Follow GitHub's internal asset redirect on the server, not in the visitor's browser.
-    const upstream = await fetch(downloadUrl, {
-      method: context.request.method === "HEAD" ? "HEAD" : "GET",
-      headers: upstreamHeaders,
-      redirect: "follow"
-    });
-
-    if (!upstream.ok) {
-      return new Response("The APK download is temporarily unavailable", {
-        status: upstream.status === 404 ? 404 : 502
+    const release = await releaseResponse.json();
+    if (release.draft || release.prerelease || !release.tag_name) {
+      return new Response("No stable release is available", {
+        status: 503,
+        headers: { "Cache-Control": "no-store" }
       });
     }
 
-    const headers = new Headers(upstream.headers);
-    headers.set("Content-Type", "application/vnd.android.package-archive");
-    headers.set("Content-Disposition", `attachment; filename="${fileName}"`);
-    headers.set("Cache-Control", "private, no-store");
-    headers.set("X-Content-Type-Options", "nosniff");
-    headers.delete("Location");
+    const assets = Array.isArray(release.assets) ? release.assets : [];
+    const asset = assets.find(item => item.name === fileName);
 
-    if (upstream.status === 200 && !headers.has("Content-Length")) {
-      headers.set("Content-Length", String(assetSize || 0));
+    if (!asset || !asset.browser_download_url) {
+      return new Response(
+        "This APK variant is not available in the latest stable release",
+        {
+          status: 503,
+          headers: { "Cache-Control": "no-store" }
+        }
+      );
     }
 
-    return new Response(
-      context.request.method === "HEAD" ? null : upstream.body,
-      {
-        status: upstream.status,
-        statusText: upstream.statusText,
-        headers
+    // Redirect the client to GitHub's official asset URL instead of proxying
+    // a large APK through Cloudflare Workers. This supports normal browser and
+    // Android DownloadManager downloads, including byte-range resume requests.
+    return new Response(null, {
+      status: 302,
+      headers: {
+        Location: asset.browser_download_url,
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
       }
-    );
-  } catch (error) {
+    });
+  } catch (_) {
     return new Response("The APK download could not be started", {
-      status: 502
+      status: 502,
+      headers: { "Cache-Control": "no-store" }
     });
   }
 }
